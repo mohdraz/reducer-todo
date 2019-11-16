@@ -1,52 +1,45 @@
-import React, {useReducer} from "react";
+import React, { useReducer } from "react";
+
+import { reducer, initialState } from "../reducers/todoReducer";
+import { TodoContext } from "../contexts/TodoContext";
+
 import TodoForm from "./TodoForm";
-import {reducer, initialState} from "../reducers/todoReducer";
 import Todo from "./Todo";
 
-
-
 const TodoList = props => {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    console.log("State from todolist: ", state);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    const clearTodos = (e) => {
-        e.preventDefault();
-        
-        dispatch({
-            type: "CLEAR_TODOS"
-        });
-    }
+  const clearTodos = e => {
+    e.preventDefault();
 
-    return (
-        <div>
-            <section>
-        <TodoForm 
-            state={state}
-            dispatch={dispatch}
-        />
+    dispatch({
+      type: "CLEAR_TODOS"
+    });
+  };
 
-
-
-
-
-      </section>
-
-
-            {state.map( todo => (
-                  <Todo 
-                    key={todo.id} 
-                    todo={todo} 
-                    state={state}
-                    dispatch={dispatch}
-                  />
-             ) )}
-
-        <button onClick={clearTodos} >
-            Clear Tasks
-        </button>
-      
-        </div>
-    );
+  return (
+    <div>
+      <TodoContext.Provider
+        value={{
+          state,
+          dispatch
+        }}
+      >
+        <section>
+          <TodoForm />
+        </section>
+        <section>
+          {" "}
+          {state.map(todo => (
+            <Todo key={todo.id} todo={todo} />
+          ))}
+        </section>{" "}
+        <section>
+          <button onClick={clearTodos}>Clear Tasks </button>{" "}
+        </section>{" "}
+      </TodoContext.Provider>{" "}
+    </div>
+  );
 };
 
-export default TodoList; 
+export default TodoList;

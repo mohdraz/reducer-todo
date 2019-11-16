@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 
+import { TodoContext } from "../contexts/TodoContext";
 
 const Todo = props => {
-    const {state, dispatch} = props;
-    console.log("State from todo.js ", state);
+  const { dispatch } = useContext(TodoContext);
 
-    const handleClick = e => {
-        e.preventDefault();
-        
-        dispatch({
-            type: "TOGGLE_COMPLETION",
-            payload: {
-                id: props.todo.id
-            }
-        });
-    }
+  const handleClick = e => {
+    e.preventDefault();
 
-    return (
-        <div onClick={handleClick} style={ {color: props.todo.completed ? "red" : "black"} } >
-            <p> {props.todo.item} </p>
-        </div>
-    );
-}
+    dispatch({
+      type: "TOGGLE_COMPLETION",
+      payload: {
+        id: props.todo.id
+      }
+    });
+  };
+
+  return (
+    <div
+      onClick={handleClick}
+      style={{ color: props.todo.completed ? "red" : "black" }}
+    >
+      <p> {props.todo.item} </p>
+    </div>
+  );
+};
 
 export default Todo;
