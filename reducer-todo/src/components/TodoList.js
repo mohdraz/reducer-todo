@@ -9,23 +9,41 @@ const TodoList = props => {
     const [state, dispatch] = useReducer(reducer, initialState);
     console.log("State from todolist: ", state);
 
+    const clearTodos = (e) => {
+        e.preventDefault();
+        
+        dispatch({
+            type: "CLEAR_TODOS"
+        });
+    }
+
     return (
         <div>
             <section>
         <TodoForm 
             state={state}
             dispatch={dispatch}
-            
-        
         />
+
+
+
+
+
       </section>
 
-            {/* {state.map( item => item.item)} */}
 
-            {state.map( item => (
-                  <Todo key={item.id} todo={item} />
+            {state.map( todo => (
+                  <Todo 
+                    key={todo.id} 
+                    todo={todo} 
+                    state={state}
+                    dispatch={dispatch}
+                  />
              ) )}
 
+        <button onClick={clearTodos} >
+            Clear Tasks
+        </button>
       
         </div>
     );

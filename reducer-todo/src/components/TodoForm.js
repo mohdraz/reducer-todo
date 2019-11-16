@@ -1,9 +1,7 @@
 import React, {useState, useReducer} from "react";
-// import {reducer, initialState} from "../reducers/todoReducer";
 
 const TodoForm = props => {
     const [newTodo, setNewTodo] = useState('');
-    // const [state, dispatch] = useReducer(reducer, initialState);
     const {state, dispatch} = props;
     
 
