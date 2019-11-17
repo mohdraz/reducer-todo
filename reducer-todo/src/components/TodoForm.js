@@ -3,9 +3,29 @@ import { TodoContext } from "../contexts/TodoContext";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "../theme/Button";
+
+const useStyles = makeStyles(theme => ({
+  inputField: {
+    border: "1px solid #323858",
+    width: "300px",
+    height: "50px",
+    padding: "10px 15px",
+    borderRadius: "40px"
+  },
+  form: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+}));
+
 function TodoForm({ values, errors, touched, status }) {
   const [newTodo, setNewTodo] = useState("");
   const { state, dispatch } = useContext(TodoContext);
+  const classes = useStyles();
 
   useEffect(() => {
     if (status) {
@@ -16,24 +36,22 @@ function TodoForm({ values, errors, touched, status }) {
     }
   }, [status]);
 
-  //   const handleSubmit = e => {
-  //     e.preventDefault();
-
-  //     setNewTodo("");
-  //   };
-
   return (
     <>
-      <h3>Todo Form</h3>
-      <Form>
+      <Form className={classes.form}>
         <div>
-          <Field type="text" name="todo" placeholder="Add Your Task" />
+          <Field
+            type="text"
+            name="todo"
+            placeholder="Add Your Task"
+            className={classes.inputField}
+          />
           {touched.todo && errors.todo && (
             <p style={{ color: "red" }}>{errors.todo}</p>
           )}
         </div>
 
-        <button type="submit">Add Todo</button>
+        <Button type="submit">Add Todo</Button>
       </Form>
     </>
   );

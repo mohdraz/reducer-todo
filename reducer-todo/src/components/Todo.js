@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 
 import { TodoContext } from "../contexts/TodoContext";
+import useTodoStyles from "../theme/todoItemStyles";
 
 const Todo = props => {
   const { dispatch } = useContext(TodoContext);
+  const classes = useTodoStyles();
 
   const handleClick = e => {
     e.preventDefault();
@@ -19,7 +21,11 @@ const Todo = props => {
   return (
     <div
       onClick={handleClick}
-      style={{ color: props.todo.completed ? "red" : "black" }}
+      className={
+        props.todo.completed
+          ? classes.todoItem + " " + classes.todoComplted
+          : classes.todoItem
+      }
     >
       <p> {props.todo.item} </p>
     </div>
