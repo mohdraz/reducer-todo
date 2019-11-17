@@ -7,17 +7,17 @@ export const initialState = [
   {
     item: "react",
     completed: false,
-    id: 3
+    id: 1
   },
   {
     item: "styled component",
     completed: false,
-    id: 4
+    id: 2
   },
   {
     item: "reducers",
     completed: false,
-    id: 5
+    id: 3
   }
 ];
 
@@ -29,7 +29,7 @@ export const reducer = (state, action) => {
         {
           item: action.payload,
           completed: false,
-          id: state.length + 1
+          id: Date.now()
         }
       ];
     case "TOGGLE_COMPLETION":
